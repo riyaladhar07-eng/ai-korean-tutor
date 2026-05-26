@@ -2,224 +2,40 @@
 <html>
 <head>
 <title>AI Korean Tutor</title>
-
-<style>
-body{
-    background:#0f172a;
-    font-family:Arial;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
-
-h1{
-    color:#f472b6;
-}
-
-#chatbox{
-    width:85%;
-    max-width:750px;
-    height:450px;
-    background:#1e293b;
-    margin:auto;
-    padding:20px;
-    border-radius:15px;
-    overflow-y:auto;
-    text-align:left;
-    box-shadow:0 0 10px rgba(0,0,0,0.5);
-}
-
-.message{
-    margin:10px 0;
-    padding:10px;
-    border-radius:10px;
-}
-
-.user{
-    background:#2563eb;
-}
-
-.bot{
-    background:#334155;
-}
-
-input{
-    width:70%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    margin-top:15px;
-}
-
-button{
-    padding:12px 20px;
-    border:none;
-    border-radius:10px;
-    background:#f472b6;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#ec4899;
-}
-</style>
 </head>
 
-<body>
+<body style="background:#0f172a;color:white;font-family:Arial;text-align:center;">
 
-<h1>🇰🇷 AI Korean Tutor - 100 Beginner Words</h1>
+<h1>AI Korean Tutor</h1>
 
-<div id="chatbox"></div>
+<div id="result"></div>
 
-<input type="text" id="userInput" placeholder="Type English word...">
-<button onclick="sendMessage()">Send</button>
+<input id="word" placeholder="Type word">
+<button onclick="translateWord()">Send</button>
 
 <script>
 
 const words = {
-
-"hello":"안녕하세요 (annyeonghaseyo)",
-"thank you":"감사합니다 (gamsahamnida)",
-"yes":"네 (ne)",
-"no":"아니요 (aniyo)",
-"bye":"안녕 (annyeong)",
-"love":"사랑 (sarang)",
-"friend":"친구 (chingu)",
-"school":"학교 (hakgyo)",
-"teacher":"선생님 (seonsaengnim)",
-"student":"학생 (haksaeng)",
-"book":"책 (chaek)",
-"water":"물 (mul)",
-"food":"음식 (eumsik)",
-"rice":"밥 (bap)",
-"apple":"사과 (sagwa)",
-"banana":"바나나 (banana)",
-"dog":"강아지 (gangaji)",
-"cat":"고양이 (goyangi)",
-"house":"집 (jip)",
-"car":"자동차 (jadongcha)",
-"bus":"버스 (beoseu)",
-"train":"기차 (gicha)",
-"phone":"전화기 (jeonhwagi)",
-"computer":"컴퓨터 (keompyuteo)",
-"music":"음악 (eumak)",
-"movie":"영화 (yeonghwa)",
-"game":"게임 (geim)",
-"happy":"행복하다 (haengbokhada)",
-"sad":"슬프다 (seulpeuda)",
-"big":"크다 (keuda)",
-"small":"작다 (jakda)",
-"beautiful":"아름답다 (areumdapda)",
-"day":"날 (nal)",
-"night":"밤 (bam)",
-"morning":"아침 (achim)",
-"evening":"저녁 (jeonyeok)",
-"today":"오늘 (oneul)",
-"tomorrow":"내일 (naeil)",
-"yesterday":"어제 (eoje)",
-"name":"이름 (ireum)",
-"country":"나라 (nara)",
-"korea":"한국 (hanguk)",
-"india":"인도 (indo)",
-"english":"영어 (yeongeo)",
-"korean":"한국어 (hangugeo)",
-"study":"공부하다 (gongbuhada)",
-"eat":"먹다 (meokda)",
-"drink":"마시다 (masida)",
-"sleep":"자다 (jada)",
-"run":"달리다 (dallida)",
-"walk":"걷다 (geotda)",
-"read":"읽다 (ikda)",
-"write":"쓰다 (sseuda)",
-"speak":"말하다 (malhada)",
-"listen":"듣다 (deutda)",
-"see":"보다 (boda)",
-"go":"가다 (gada)",
-"come":"오다 (oda)",
-"money":"돈 (don)",
-"market":"시장 (sijang)",
-"hospital":"병원 (byeongwon)",
-"doctor":"의사 (uisa)",
-"family":"가족 (gajok)",
-"mother":"어머니 (eomeoni)",
-"father":"아버지 (abeoji)",
-"brother":"형제 (hyeongje)",
-"sister":"자매 (jamae)",
-"baby":"아기 (agi)",
-"weather":"날씨 (nalssi)",
-"rain":"비 (bi)",
-"snow":"눈 (nun)",
-"sun":"태양 (taeyang)",
-"moon":"달 (dal)",
-"star":"별 (byeol)",
-"red":"빨강 (ppalgang)",
-"blue":"파랑 (parang)",
-"green":"초록 (chorok)",
-"black":"검정 (geomjeong)",
-"white":"하양 (hayang)",
-"one":"하나 (hana)",
-"two":"둘 (dul)",
-"three":"셋 (set)",
-"four":"넷 (net)",
-"five":"다섯 (daseot)",
-"six":"여섯 (yeoseot)",
-"seven":"일곱 (ilgop)",
-"eight":"여덟 (yeodeol)",
-"nine":"아홉 (ahop)",
-"ten":"열 (yeol)",
-"coffee":"커피 (keopi)",
-"tea":"차 (cha)",
-"milk":"우유 (uyu)",
-"bread":"빵 (ppang)",
-"fish":"물고기 (mulgogi)",
-"meat":"고기 (gogi)",
-"chair":"의자 (uija)",
-"table":"테이블 (teibeul)",
-"window":"창문 (changmun)",
-"door":"문 (mun)",
-"travel":"여행 (yeohaeng)",
-"airport":"공항 (gonghang)",
-"beach":"해변 (haebyeon)",
-"mountain":"산 (san)",
-"river":"강 (gang)"
-
+"hello":"안녕하세요",
+"thank you":"감사합니다",
+"apple":"사과",
+"school":"학교",
+"friend":"친구"
 };
 
-function sendMessage(){
+function translateWord(){
 
-    let input = document.getElementById("userInput").value.toLowerCase();
+let input = document.getElementById("word").value.toLowerCase();
 
-    if(input.trim() === ""){
-        return;
-    }
+if(words[input]){
+document.getElementById("result").innerHTML =
+"You typed: " + input + "<br>Korean: " + words[input];
+}
+else{
+document.getElementById("result").innerHTML =
+"Word not found";
+}
 
-    let chatbox = document.getElementById("chatbox");
-
-    chatbox.innerHTML += `
-    <div class="message user">
-    <b>You:</b> ${input}
-    </div>
-    `;
-
-    let response = words[input];
-
-    if(response){
-        response = "🇰🇷 " + response;
-    }else{
-        response = "❌ Word not found in 100 beginner Korean words.";
-    }
-
-    chatbox.innerHTML += `
-    <div class="message bot">
-    <b>AI Tutor:</b> ${response}
-    </div>
-    `;
-
-    document.getElementById("userInput").value = "";
-
-    chatbox.scrollTop = chatbox.scrollHeight;
 }
 
 </script>
