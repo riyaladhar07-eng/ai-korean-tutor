@@ -1,65 +1,69 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>AI Korean Tutor</title>
 
 <style>
-
 body{
-background:#0f172a;
-font-family:Arial;
-color:white;
-text-align:center;
-padding:20px;
+    background:#0f172a;
+    font-family:Arial;
+    color:white;
+    text-align:center;
+    padding:20px;
 }
 
 h1{
-color:#f472b6;
+    color:#f472b6;
 }
 
 #chatbox{
-width:85%;
-max-width:750px;
-height:450px;
-background:#1e293b;
-margin:auto;
-padding:20px;
-border-radius:15px;
-overflow-y:auto;
-text-align:left;
+    width:85%;
+    max-width:750px;
+    height:450px;
+    background:#1e293b;
+    margin:auto;
+    padding:20px;
+    border-radius:15px;
+    overflow-y:auto;
+    text-align:left;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 
 .message{
-padding:12px;
-margin:10px 0;
-border-radius:10px;
+    margin:10px 0;
+    padding:10px;
+    border-radius:10px;
 }
 
 .user{
-background:#2563eb;
+    background:#2563eb;
 }
 
 .bot{
-background:#7c3aed;
+    background:#334155;
 }
 
 input{
-width:70%;
-padding:12px;
-border:none;
-border-radius:10px;
+    width:70%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    margin-top:15px;
 }
 
 button{
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:#f472b6;
-font-weight:bold;
-cursor:pointer;
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#f472b6;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
+button:hover{
+    background:#ec4899;
+}
 </style>
 </head>
 
@@ -69,200 +73,156 @@ cursor:pointer;
 
 <div id="chatbox"></div>
 
-<br>
-
-<input type="text" id="userInput" placeholder="Ask a Korean word...">
-
+<input type="text" id="userInput" placeholder="Type English word...">
 <button onclick="sendMessage()">Send</button>
 
 <script>
 
 const words = {
 
-"hello":"안녕하세요 (Annyeonghaseyo) = Hello",
+"hello":"안녕하세요 (annyeonghaseyo)",
+"thank you":"감사합니다 (gamsahamnida)",
+"yes":"네 (ne)",
+"no":"아니요 (aniyo)",
+"bye":"안녕 (annyeong)",
+"love":"사랑 (sarang)",
+"friend":"친구 (chingu)",
+"school":"학교 (hakgyo)",
+"teacher":"선생님 (seonsaengnim)",
+"student":"학생 (haksaeng)",
+"book":"책 (chaek)",
+"water":"물 (mul)",
+"food":"음식 (eumsik)",
+"rice":"밥 (bap)",
+"apple":"사과 (sagwa)",
+"banana":"바나나 (banana)",
+"dog":"강아지 (gangaji)",
+"cat":"고양이 (goyangi)",
+"house":"집 (jip)",
+"car":"자동차 (jadongcha)",
+"bus":"버스 (beoseu)",
+"train":"기차 (gicha)",
+"phone":"전화기 (jeonhwagi)",
+"computer":"컴퓨터 (keompyuteo)",
+"music":"음악 (eumak)",
+"movie":"영화 (yeonghwa)",
+"game":"게임 (geim)",
+"happy":"행복하다 (haengbokhada)",
+"sad":"슬프다 (seulpeuda)",
+"big":"크다 (keuda)",
+"small":"작다 (jakda)",
+"beautiful":"아름답다 (areumdapda)",
+"day":"날 (nal)",
+"night":"밤 (bam)",
+"morning":"아침 (achim)",
+"evening":"저녁 (jeonyeok)",
+"today":"오늘 (oneul)",
+"tomorrow":"내일 (naeil)",
+"yesterday":"어제 (eoje)",
+"name":"이름 (ireum)",
+"country":"나라 (nara)",
+"korea":"한국 (hanguk)",
+"india":"인도 (indo)",
+"english":"영어 (yeongeo)",
+"korean":"한국어 (hangugeo)",
+"study":"공부하다 (gongbuhada)",
+"eat":"먹다 (meokda)",
+"drink":"마시다 (masida)",
+"sleep":"자다 (jada)",
+"run":"달리다 (dallida)",
+"walk":"걷다 (geotda)",
+"read":"읽다 (ikda)",
+"write":"쓰다 (sseuda)",
+"speak":"말하다 (malhada)",
+"listen":"듣다 (deutda)",
+"see":"보다 (boda)",
+"go":"가다 (gada)",
+"come":"오다 (oda)",
+"money":"돈 (don)",
+"market":"시장 (sijang)",
+"hospital":"병원 (byeongwon)",
+"doctor":"의사 (uisa)",
+"family":"가족 (gajok)",
+"mother":"어머니 (eomeoni)",
+"father":"아버지 (abeoji)",
+"brother":"형제 (hyeongje)",
+"sister":"자매 (jamae)",
+"baby":"아기 (agi)",
+"weather":"날씨 (nalssi)",
+"rain":"비 (bi)",
+"snow":"눈 (nun)",
+"sun":"태양 (taeyang)",
+"moon":"달 (dal)",
+"star":"별 (byeol)",
+"red":"빨강 (ppalgang)",
+"blue":"파랑 (parang)",
+"green":"초록 (chorok)",
+"black":"검정 (geomjeong)",
+"white":"하양 (hayang)",
+"one":"하나 (hana)",
+"two":"둘 (dul)",
+"three":"셋 (set)",
+"four":"넷 (net)",
+"five":"다섯 (daseot)",
+"six":"여섯 (yeoseot)",
+"seven":"일곱 (ilgop)",
+"eight":"여덟 (yeodeol)",
+"nine":"아홉 (ahop)",
+"ten":"열 (yeol)",
+"coffee":"커피 (keopi)",
+"tea":"차 (cha)",
+"milk":"우유 (uyu)",
+"bread":"빵 (ppang)",
+"fish":"물고기 (mulgogi)",
+"meat":"고기 (gogi)",
+"chair":"의자 (uija)",
+"table":"테이블 (teibeul)",
+"window":"창문 (changmun)",
+"door":"문 (mun)",
+"travel":"여행 (yeohaeng)",
+"airport":"공항 (gonghang)",
+"beach":"해변 (haebyeon)",
+"mountain":"산 (san)",
+"river":"강 (gang)"
 
-"bye":"안녕히 가세요 (Annyeonghi gaseyo) = Goodbye",
+};
 
-"thank you":"감사합니다 (Gamsahamnida) = Thank you",
+function sendMessage(){
 
-"sorry":"죄송합니다 (Joesonghamnida) = Sorry",
+    let input = document.getElementById("userInput").value.toLowerCase();
 
-"yes":"네 (Ne) = Yes",
+    if(input.trim() === ""){
+        return;
+    }
 
-"no":"아니요 (Aniyo) = No",
+    let chatbox = document.getElementById("chatbox");
 
-"love":"사랑 (Sarang) = Love",
+    chatbox.innerHTML += `
+    <div class="message user">
+    <b>You:</b> ${input}
+    </div>
+    `;
 
-"friend":"친구 (Chingu) = Friend",
+    let response = words[input];
 
-"school":"학교 (Hakgyo) = School",
+    if(response){
+        response = "🇰🇷 " + response;
+    }else{
+        response = "❌ Word not found in 100 beginner Korean words.";
+    }
 
-"teacher":"선생님 (Seonsaengnim) = Teacher",
+    chatbox.innerHTML += `
+    <div class="message bot">
+    <b>AI Tutor:</b> ${response}
+    </div>
+    `;
 
-"student":"학생 (Haksaeng) = Student",
+    document.getElementById("userInput").value = "";
 
-"book":"책 (Chaek) = Book",
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
 
-"pen":"펜 (Pen) = Pen",
+</script>
 
-"water":"물 (Mul) = Water",
-
-"food":"음식 (Eumsik) = Food",
-
-"rice":"밥 (Bap) = Rice",
-
-"house":"집 (Jip) = House",
-
-"mother":"어머니 (Eomeoni) = Mother",
-
-"father":"아버지 (Abeoji) = Father",
-
-"brother":"형 (Hyeong) = Brother",
-
-"sister":"누나 (Nuna) = Sister",
-
-"dog":"강아지 (Gangaji) = Dog",
-
-"cat":"고양이 (Goyangi) = Cat",
-
-"car":"자동차 (Jadongcha) = Car",
-
-"phone":"전화기 (Jeonhwagi) = Phone",
-
-"computer":"컴퓨터 (Keompyuteo) = Computer",
-
-"music":"음악 (Eumak) = Music",
-
-"movie":"영화 (Yeonghwa) = Movie",
-
-"happy":"행복 (Haengbok) = Happy",
-
-"sad":"슬픔 (Seulpeum) = Sad",
-
-"big":"큰 (Keun) = Big",
-
-"small":"작은 (Jageun) = Small",
-
-"beautiful":"아름다운 (Areumdaun) = Beautiful",
-
-"today":"오늘 (Oneul) = Today",
-
-"tomorrow":"내일 (Naeil) = Tomorrow",
-
-"yesterday":"어제 (Eoje) = Yesterday",
-
-"time":"시간 (Sigan) = Time",
-
-"day":"날 (Nal) = Day",
-
-"night":"밤 (Bam) = Night",
-
-"sun":"태양 (Taeyang) = Sun",
-
-"moon":"달 (Dal) = Moon",
-
-"star":"별 (Byeol) = Star",
-
-"red":"빨간색 (Ppalgansek) = Red",
-
-"blue":"파란색 (Paransek) = Blue",
-
-"green":"초록색 (Choroksek) = Green",
-
-"black":"검정색 (Geomjeongsek) = Black",
-
-"white":"하얀색 (Hayansek) = White",
-
-"one":"하나 (Hana) = 1",
-
-"two":"둘 (Dul) = 2",
-
-"three":"셋 (Set) = 3",
-
-"four":"넷 (Net) = 4",
-
-"five":"다섯 (Daseot) = 5",
-
-"six":"여섯 (Yeoseot) = 6",
-
-"seven":"일곱 (Ilgop) = 7",
-
-"eight":"여덟 (Yeodeol) = 8",
-
-"nine":"아홉 (Ahop) = 9",
-
-"ten":"열 (Yeol) = 10",
-
-"korea":"한국 (Hanguk) = Korea",
-
-"language":"언어 (Eoneo) = Language",
-
-"coffee":"커피 (Keopi) = Coffee",
-
-"tea":"차 (Cha) = Tea",
-
-"milk":"우유 (Uyu) = Milk",
-
-"apple":"사과 (Sagwa) = Apple",
-
-"banana":"바나나 (Banana) = Banana",
-
-"orange":"오렌지 (Orenji) = Orange",
-
-"chair":"의자 (Uija) = Chair",
-
-"table":"테이블 (Teibeul) = Table",
-
-"window":"창문 (Changmun) = Window",
-
-"door":"문 (Mun) = Door",
-
-"bag":"가방 (Gabang) = Bag",
-
-"shirt":"셔츠 (Syeocheu) = Shirt",
-
-"shoes":"신발 (Sinbal) = Shoes",
-
-"money":"돈 (Don) = Money",
-
-"market":"시장 (Sijang) = Market",
-
-"train":"기차 (Gicha) = Train",
-
-"bus":"버스 (Beoseu) = Bus",
-
-"airplane":"비행기 (Bihaenggi) = Airplane",
-
-"city":"도시 (Dosi) = City",
-
-"country":"나라 (Nara) = Country",
-
-"sea":"바다 (Bada) = Sea",
-
-"mountain":"산 (San) = Mountain",
-
-"rain":"비 (Bi) = Rain",
-
-"snow":"눈 (Nun) = Snow",
-
-"hot":"뜨거운 (Tteugeoun) = Hot",
-
-"cold":"추운 (Chuun) = Cold",
-
-"fast":"빠른 (Ppareun) = Fast",
-
-"slow":"느린 (Neurin) = Slow",
-
-"good":"좋은 (Joeun) = Good",
-
-"bad":"나쁜 (Nappeun) = Bad",
-
-"eat":"먹다 (Meokda) = Eat",
-
-"drink":"마시다 (Masida) = Drink",
-
-"sleep":"자다 (Jada) = Sleep",
-
-"study":"공부하다 (Gongbuhada) = Study",
-
-"re…
+</body>
+</html>
